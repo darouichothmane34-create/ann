@@ -61,13 +61,13 @@ Le mode administrateur inclut :
 ---
 
 ## 6) Architecture du projet
-- `Models/` : entités métier (`Site`, `ServiceEntreprise`, `Salarie`)
-- `Data/` : contexte EF Core et initialisation base
-- `Repositories/` : accès aux données (EF Core + SQL primitives)
-- `Services/` : services transverses (auth, logs, PDF, import API)
-- `ViewModels/` : logique MVVM des écrans
-- `Views/` : vues XAML (fenêtres/écrans)
-- `Helpers/` : utilitaires (ex: `RelayCommand`)
+- `AnnuaireEntreprise.Wpf/Models/` : entités métier (`Site`, `ServiceEntreprise`, `Salarie`)
+- `AnnuaireEntreprise.Wpf/Data/` : contexte EF Core et initialisation base
+- `AnnuaireEntreprise.Wpf/Repositories/` : accès aux données (EF Core + SQL primitives)
+- `AnnuaireEntreprise.Wpf/Services/` : services transverses (auth, logs, PDF, import API)
+- `AnnuaireEntreprise.Wpf/ViewModels/` : logique MVVM des écrans
+- Vues XAML : fichiers `AnnuaireEntreprise.Wpf/*.xaml` (fenêtres/écrans)
+- `AnnuaireEntreprise.Wpf/Helpers/` : utilitaires (ex: `RelayCommand`)
 - `Logs/` : journaux d’exécution (`admin-access.log`, `errors.log`)
 - `Documents/` : génération des PDF (`FichesSalaries`)
 
