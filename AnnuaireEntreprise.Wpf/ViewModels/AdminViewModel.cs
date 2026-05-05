@@ -166,8 +166,21 @@ public class AdminViewModel : INotifyPropertyChanged
         if (SelectedSalarie is null || !ValidateSalarie()) return;
         try
         {
+            var email = SalarieEmail.Trim().ToLowerInvariant();
+            var duplicate = (await _salarieRepository.GetAllAsync()).Any(x => x.Id != SelectedSalarie.Id && x.Email.ToLowerInvariant() == email);
+            if (duplicate)
+            {
+                MessageBox.Show("Un autre salarié utilise déjà cet email.");
+                return;
+            }
+
             SelectedSalarie.Nom = SalarieNom.Trim(); SelectedSalarie.Prenom = SalariePrenom.Trim(); SelectedSalarie.Telephone = SalarieTelephoneFixe.Trim(); SelectedSalarie.TelephonePortable = SalarieTelephonePortable.Trim(); SelectedSalarie.Email = SalarieEmail.Trim(); SelectedSalarie.ServiceEntrepriseId = SalarieSelectedService!.Id; SelectedSalarie.SiteId = SalarieSelectedSite!.Id;
-            await _salarieRepository.UpdateAsync(SelectedSalarie);
+            var ok = await _salarieRepository.UpdateAsync(SelectedSalarie);
+            if (!ok)
+            {
+                MessageBox.Show("Le salarié sélectionné est introuvable. Rafraîchissez la liste.");
+                return;
+            }
             await LoadSalariesAsync();
             MessageBox.Show("Salarié modifié avec succès.");
         }

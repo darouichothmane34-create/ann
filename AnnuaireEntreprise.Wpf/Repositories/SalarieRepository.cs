@@ -69,7 +69,22 @@ public class SalarieRepository : ISalarieRepository
     {
         try
         {
-            _dbContext.Salaries.Update(entity);
+            var existing = await _dbContext.Salaries.FirstOrDefaultAsync(x => x.Id == entity.Id, cancellationToken);
+            if (existing is null)
+            {
+                return false;
+            }
+
+            existing.Nom = entity.Nom;
+            existing.Prenom = entity.Prenom;
+            existing.Email = entity.Email;
+            existing.Telephone = entity.Telephone;
+            existing.TelephonePortable = entity.TelephonePortable;
+            existing.Poste = entity.Poste;
+            existing.DateEmbauche = entity.DateEmbauche;
+            existing.ServiceEntrepriseId = entity.ServiceEntrepriseId;
+            existing.SiteId = entity.SiteId;
+
             var affectedRows = await _dbContext.SaveChangesAsync(cancellationToken);
             return affectedRows > 0;
         }
