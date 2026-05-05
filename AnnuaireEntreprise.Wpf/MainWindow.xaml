@@ -1,0 +1,74 @@
+<Window x:Class="AnnuaireEntreprise.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Annuaire entreprise - Mode visiteur" Height="650" Width="1100" PreviewKeyDown="OnPreviewKeyDown">
+    <Grid Margin="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+            <TextBlock Text="Nom :" VerticalAlignment="Center" Margin="0,0,6,0"/>
+            <TextBox Width="200" Text="{Binding NomRecherche, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,12,0"/>
+
+            <TextBlock Text="Site :" VerticalAlignment="Center" Margin="0,0,6,0"/>
+            <ComboBox Width="180" ItemsSource="{Binding Sites}" SelectedItem="{Binding SelectedSite}" DisplayMemberPath="Nom" Margin="0,0,12,0"/>
+
+            <TextBlock Text="Service :" VerticalAlignment="Center" Margin="0,0,6,0"/>
+            <ComboBox Width="220" ItemsSource="{Binding Services}" SelectedItem="{Binding SelectedService}" DisplayMemberPath="Nom" Margin="0,0,12,0"/>
+
+            <Button Content="Rechercher" Command="{Binding RechercherCommand}" Width="110" Margin="0,0,8,0"/>
+            <Button Content="Réinitialiser" Command="{Binding ReinitialiserCommand}" Width="110" Margin="0,0,8,0"/>
+            <Button Content="Générer PDF" Command="{Binding GenererPdfCommand}" Width="110"/>
+        </StackPanel>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <DataGrid Grid.Column="0"
+                      ItemsSource="{Binding Salaries}"
+                      SelectedItem="{Binding SelectedSalarie, Mode=TwoWay}"
+                      AutoGenerateColumns="False"
+                      IsReadOnly="True"
+                      Margin="0,0,10,0">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Nom" Binding="{Binding Nom}" Width="*"/>
+                    <DataGridTextColumn Header="Prénom" Binding="{Binding Prenom}" Width="*"/>
+                    <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="1.6*"/>
+                    <DataGridTextColumn Header="Téléphone" Binding="{Binding Telephone}" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <Border Grid.Column="1" BorderBrush="#CCCCCC" BorderThickness="1" Padding="10">
+                <StackPanel>
+                    <TextBlock Text="Détail salarié" FontWeight="Bold" FontSize="16" Margin="0,0,0,12"/>
+
+                    <TextBlock Text="Nom" FontWeight="SemiBold"/>
+                    <TextBlock Text="{Binding SelectedSalarie.Nom}" Margin="0,0,0,8"/>
+
+                    <TextBlock Text="Prénom" FontWeight="SemiBold"/>
+                    <TextBlock Text="{Binding SelectedSalarie.Prenom}" Margin="0,0,0,8"/>
+
+                    <TextBlock Text="Téléphone fixe" FontWeight="SemiBold"/>
+                    <TextBlock Text="{Binding SelectedSalarie.Telephone}" Margin="0,0,0,8"/>
+
+                    <TextBlock Text="Téléphone portable" FontWeight="SemiBold"/>
+                    <TextBlock Text="{Binding SelectedSalarie.TelephonePortable}" Margin="0,0,0,8"/>
+
+                    <TextBlock Text="Email" FontWeight="SemiBold"/>
+                    <TextBlock Text="{Binding SelectedSalarie.Email}" Margin="0,0,0,8"/>
+
+                    <TextBlock Text="Service" FontWeight="SemiBold"/>
+                    <TextBlock Text="{Binding SelectedSalarie.ServiceEntreprise.Nom}" Margin="0,0,0,8"/>
+
+                    <TextBlock Text="Site" FontWeight="SemiBold"/>
+                    <TextBlock Text="{Binding SelectedSalarie.Site.Nom}" Margin="0,0,0,8"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>
