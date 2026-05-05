@@ -71,6 +71,12 @@ public class MainViewModel : INotifyPropertyChanged
         await LoadAllSalariesAsync();
     }
 
+    public async Task RefreshAfterAdminChangesAsync()
+    {
+        await LoadFiltersAsync();
+        await LoadAllSalariesAsync();
+    }
+
     private async Task LoadFiltersAsync()
     {
         Sites.Clear();
