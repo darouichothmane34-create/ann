@@ -40,7 +40,6 @@
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="80"/>
                             <DataGridTextColumn Header="Nom" Binding="{Binding Nom}" Width="*"/>
-                            <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="2*"/>
                         </DataGrid.Columns>
                     </DataGrid>
 

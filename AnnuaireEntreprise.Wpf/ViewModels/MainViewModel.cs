@@ -8,6 +8,7 @@ using AnnuaireEntreprise.Models;
 using AnnuaireEntreprise.Repositories;
 using AnnuaireEntreprise.Services;
 using System.Windows;
+using System.Diagnostics;
 
 namespace AnnuaireEntreprise.ViewModels;
 
@@ -144,7 +145,12 @@ public class MainViewModel : INotifyPropertyChanged
         {
             var details = await _salarieRepository.GetSalarieDetails(SelectedSalarie.Id) ?? SelectedSalarie;
             var path = _pdfService.GenerateSalariePdf(details);
-            MessageBox.Show($"PDF généré : {path}", "PDF", MessageBoxButton.OK, MessageBoxImage.Information);
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = path,
+                UseShellExecute = true
+            });
+            MessageBox.Show($"PDF généré et ouvert : {path}", "PDF", MessageBoxButton.OK, MessageBoxImage.Information);
         }
         catch (Exception ex)
         {
