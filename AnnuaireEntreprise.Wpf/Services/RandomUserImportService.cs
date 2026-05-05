@@ -18,7 +18,10 @@ public class RandomUserImportService
         response.EnsureSuccessStatusCode();
         await using var stream = await response.Content.ReadAsStreamAsync(cancellationToken);
 
-        var payload = await JsonSerializer.DeserializeAsync<RandomUserResponse>(stream, cancellationToken: cancellationToken);
+        var payload = await JsonSerializer.DeserializeAsync<RandomUserResponse>(
+            stream,
+            new JsonSerializerOptions { PropertyNameCaseInsensitive = true },
+            cancellationToken);
         if (payload?.Results is null || payload.Results.Count == 0)
             return 0;
 
