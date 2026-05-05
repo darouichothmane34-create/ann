@@ -15,7 +15,6 @@
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="80"/>
                             <DataGridTextColumn Header="Ville" Binding="{Binding Nom}" Width="*"/>
-                            <DataGridTextColumn Header="Adresse" Binding="{Binding Adresse}" Width="2*"/>
                         </DataGrid.Columns>
                     </DataGrid>
 
