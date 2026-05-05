@@ -1,6 +1,7 @@
 using System.Windows;
 using System.Windows.Input;
 using AnnuaireEntreprise.Services;
+using AnnuaireEntreprise.ViewModels;
 
 namespace AnnuaireEntreprise;
 
@@ -40,6 +41,11 @@ public partial class MainWindow : Window
             };
 
             adminWindow.ShowDialog();
+
+            if (DataContext is MainViewModel vm)
+            {
+                _ = vm.RefreshAfterAdminChangesAsync();
+            }
         }
     }
 }
