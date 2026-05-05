@@ -1,0 +1,92 @@
+<Window x:Class="AnnuaireEntreprise.AdminWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Panneau administrateur" Height="560" Width="920" WindowStartupLocation="CenterOwner">
+    <Grid Margin="12">
+        <TabControl>
+            <TabItem Header="Sites">
+                <Grid Margin="8">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <DataGrid ItemsSource="{Binding Sites}" SelectedItem="{Binding SelectedSite}" AutoGenerateColumns="False" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="80"/>
+                            <DataGridTextColumn Header="Ville" Binding="{Binding Nom}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,10,0,0">
+                        <TextBlock Text="Ville :" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                        <TextBox Width="220" Text="{Binding SiteVille, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,12,0"/>
+                        <Button Content="Ajouter" Command="{Binding AddSiteCommand}" Width="90" Margin="0,0,8,0"/>
+                        <Button Content="Modifier" Command="{Binding UpdateSiteCommand}" Width="90" Margin="0,0,8,0"/>
+                        <Button Content="Supprimer" Command="{Binding DeleteSiteCommand}" Width="90" Margin="0,0,8,0"/>
+                        <Button Content="Rafraîchir" Command="{Binding RefreshSiteCommand}" Width="90"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Services">
+                <Grid Margin="8">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <DataGrid ItemsSource="{Binding Services}" SelectedItem="{Binding SelectedService}" AutoGenerateColumns="False" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="80"/>
+                            <DataGridTextColumn Header="Nom" Binding="{Binding Nom}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,10,0,0">
+                        <TextBlock Text="Nom :" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                        <TextBox Width="220" Text="{Binding ServiceNom, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,12,0"/>
+                        <Button Content="Ajouter" Command="{Binding AddServiceCommand}" Width="90" Margin="0,0,8,0"/>
+                        <Button Content="Modifier" Command="{Binding UpdateServiceCommand}" Width="90" Margin="0,0,8,0"/>
+                        <Button Content="Supprimer" Command="{Binding DeleteServiceCommand}" Width="90" Margin="0,0,8,0"/>
+                        <Button Content="Rafraîchir" Command="{Binding RefreshServiceCommand}" Width="90"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+        
+            <TabItem Header="Salariés">
+                <Grid Margin="8">
+                    <Grid.RowDefinitions><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+                    <DataGrid ItemsSource="{Binding Salaries}" SelectedItem="{Binding SelectedSalarie}" AutoGenerateColumns="False" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Nom" Binding="{Binding Nom}" Width="*"/>
+                            <DataGridTextColumn Header="Prénom" Binding="{Binding Prenom}" Width="*"/>
+                            <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="1.5*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Grid Grid.Row="1" Margin="0,10,0,0">
+                        <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition/></Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" Orientation="Vertical" Margin="0,0,10,0">
+                            <TextBox Margin="0,0,0,6" Text="{Binding SalarieNom, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBox Margin="0,0,0,6" Text="{Binding SalariePrenom, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBox Margin="0,0,0,6" Text="{Binding SalarieTelephoneFixe, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBox Margin="0,0,0,6" Text="{Binding SalarieTelephonePortable, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBox Margin="0,0,0,6" Text="{Binding SalarieEmail, UpdateSourceTrigger=PropertyChanged}" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Orientation="Vertical">
+                            <ComboBox Margin="0,0,0,6" ItemsSource="{Binding Services}" SelectedItem="{Binding SalarieSelectedService}" DisplayMemberPath="Nom"/>
+                            <ComboBox Margin="0,0,0,6" ItemsSource="{Binding Sites}" SelectedItem="{Binding SalarieSelectedSite}" DisplayMemberPath="Nom"/>
+                            <StackPanel Orientation="Horizontal">
+                                <Button Content="Ajouter" Command="{Binding AddSalarieCommand}" Width="90" Margin="0,0,8,0"/>
+                                <Button Content="Modifier" Command="{Binding UpdateSalarieCommand}" Width="90" Margin="0,0,8,0"/>
+                                <Button Content="Supprimer" Command="{Binding DeleteSalarieCommand}" Width="90" Margin="0,0,8,0"/>
+                                <Button Content="Rafraîchir" Command="{Binding RefreshSalarieCommand}" Width="90" Margin="0,0,8,0"/>
+                                <Button Content="Importer API" Command="{Binding ImporterApiCommand}" Width="100"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
