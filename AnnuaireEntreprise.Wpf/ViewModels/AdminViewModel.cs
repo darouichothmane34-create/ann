@@ -141,11 +141,24 @@ public class AdminViewModel : INotifyPropertyChanged
         if (!ValidateSalarie()) return;
         try
         {
+            var email = SalarieEmail.Trim().ToLowerInvariant();
+            var alreadyExists = (await _salarieRepository.GetAllAsync()).Any(x => x.Email.ToLowerInvariant() == email);
+            if (alreadyExists)
+            {
+                MessageBox.Show("Un salarié avec cet email existe déjà.");
+                return;
+            }
+
             await _salarieRepository.AddAsync(new Salarie { Nom = SalarieNom.Trim(), Prenom = SalariePrenom.Trim(), Telephone = SalarieTelephoneFixe.Trim(), TelephonePortable = SalarieTelephonePortable.Trim(), Email = SalarieEmail.Trim(), ServiceEntrepriseId = SalarieSelectedService!.Id, SiteId = SalarieSelectedSite!.Id });
+            SalarieNom = string.Empty;
+            SalariePrenom = string.Empty;
+            SalarieTelephoneFixe = string.Empty;
+            SalarieTelephonePortable = string.Empty;
+            SalarieEmail = string.Empty;
             await LoadSalariesAsync();
             MessageBox.Show("Salarié ajouté avec succès.");
         }
-        catch (Exception ex) { await _loggerService.LogErrorAsync($"Salarie add failed: {ex.Message}"); MessageBox.Show("Erreur lors de l'ajout du salarié."); }
+        catch (Exception ex) { await _loggerService.LogErrorAsync($"Salarie add failed: {ex}"); MessageBox.Show("Erreur lors de l'ajout du salarié. Vérifiez l'email et les sélections site/service."); }
     }
 
     private async Task UpdateSalarieAsync()
